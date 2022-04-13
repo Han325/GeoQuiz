@@ -79,7 +79,6 @@ public class QuizActivity extends AppCompatActivity {
 
 
         // Dynamically generate status container
-
         statusContainer = findViewById(R.id.status_container);
 
         for (Question ques : mQuestionBank) {
@@ -87,14 +86,11 @@ public class QuizActivity extends AppCompatActivity {
             btn.setId(ques.getQuestionNum());
             btn.setText(String.valueOf(ques.getQuestionNum()));
             btn.setClickable(false);
-//            btn.setBackgroundColor(0xFFFF0000);
             btn.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
             buttons.add(btn);
             statusContainer.addView(btn);
-            System.out.println(ques.getQuestionNum());
         }
 
-        System.out.println(statusContainer.getChildCount());
         // Hide submit button
         mSubmitButton = findViewById(R.id.submit_button);
         mSubmitButton.setVisibility(View.INVISIBLE);
@@ -108,6 +104,21 @@ public class QuizActivity extends AppCompatActivity {
             mQuestionsAnswered = savedInstanceState.getIntegerArrayList(KEY_QUES_ANSWERED_LIST);
             quizGrade = savedInstanceState.getInt(KEY_SCORE, 0);
         }
+
+        if (mQuestionsAnswered.isEmpty() != true) {
+            for (int i = 0; i < buttons.size(); i++) {
+                for (int j = 0; j < mQuestionsAnswered.size(); j++) {
+                    if (buttons.get(i).getText() == String.valueOf(mQuestionsAnswered.get(j))) {
+                        buttons.get(i).setEnabled(false);
+                    }
+                }
+            }
+        }
+
+        if (mCurrentIndex == mQuestionBank.length - 1) {
+            mSubmitButton.setVisibility(View.VISIBLE);
+        }
+
 
         // Display question
         mQuestionTextView = findViewById(R.id.question_text_view);
@@ -165,6 +176,7 @@ public class QuizActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mIsQuestionAnswered = false;
                 if (mCurrentIndex == mQuestionBank.length - 2) {
                     mSubmitButton.setVisibility(View.VISIBLE);
 
@@ -256,7 +268,6 @@ public class QuizActivity extends AppCompatActivity {
                 return;
             }
             mIsCheater = CheatActivity.wasAnswerShown(data);
-            System.out.println(mIsCheater);
         }
     }
 
@@ -332,17 +343,11 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-//    private void toggleStatusButtons(){
-//        Button getStatusButton = buttons.get(mCurrentIndex);
-//        getStatusButton.set
-//    }
-
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
         mQuestionsAnswered.add(mQuestionBank[mCurrentIndex].getQuestionNum());
 
         int messageResId = 0;
-        System.out.println(mIsCheater);
         if (mIsCheater) {
             messageResId = R.string.judgement_toast;
             cheatTimes += 1;
@@ -380,6 +385,8 @@ public class QuizActivity extends AppCompatActivity {
         mResetButton.setVisibility(View.INVISIBLE);
         enableButtons();
         updateQuestion();
+        mQuestionsAnswered.clear();
+        mIsQuestionAnswered = false;
 
         for (Button button : buttons) {
             button.setEnabled(true);

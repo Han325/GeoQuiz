@@ -117,6 +117,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (mCurrentIndex == mQuestionBank.length - 1) {
             mSubmitButton.setVisibility(View.VISIBLE);
+            mSubmitButton.setEnabled(true);
         }
 
 

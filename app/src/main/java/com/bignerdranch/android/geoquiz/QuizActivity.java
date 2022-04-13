@@ -82,7 +82,7 @@ public class QuizActivity extends AppCompatActivity {
 
         statusContainer = findViewById(R.id.status_container);
 
-        for (Question ques: mQuestionBank) {
+        for (Question ques : mQuestionBank) {
             Button btn = new Button(this);
             btn.setId(ques.getQuestionNum());
             btn.setText(String.valueOf(ques.getQuestionNum()));
@@ -381,7 +381,7 @@ public class QuizActivity extends AppCompatActivity {
         enableButtons();
         updateQuestion();
 
-        for (Button button: buttons){
+        for (Button button : buttons) {
             button.setEnabled(true);
         }
     }

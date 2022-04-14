@@ -30,13 +30,6 @@
                     android:gravity="center|top"
                     android:orientation="horizontal">
 
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:gravity="center"-->
-                        <!--android:text="TEST"/>-->
-
-
                 </LinearLayout>
 
             </RelativeLayout>

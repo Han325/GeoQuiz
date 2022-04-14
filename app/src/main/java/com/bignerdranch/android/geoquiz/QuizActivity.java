@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -44,7 +45,6 @@ public class QuizActivity extends AppCompatActivity {
     private Button mCheatButton;
     private Button mResetButton;
     private Button mSumButton;
-    private Button statusButton;
     private TextView mQuestionTextView;
     private LinearLayout statusContainer;
 
@@ -105,7 +105,7 @@ public class QuizActivity extends AppCompatActivity {
             quizGrade = savedInstanceState.getInt(KEY_SCORE, 0);
         }
 
-        if (mQuestionsAnswered.isEmpty() != true) {
+        if (!mQuestionsAnswered.isEmpty()) {
             for (int i = 0; i < buttons.size(); i++) {
                 for (int j = 0; j < mQuestionsAnswered.size(); j++) {
                     if (buttons.get(i).getText() == String.valueOf(mQuestionsAnswered.get(j))) {
@@ -372,7 +372,13 @@ public class QuizActivity extends AppCompatActivity {
         String grade = String.valueOf(quizGrade);
         String toastGrade = grade + "/" + totalQuestions;
 
-        Toast.makeText(this, toastGrade, Toast.LENGTH_SHORT).show();
+        float floatGrade = quizGrade;
+        float totalQues = mQuestionBank.length;
+
+        float percentage = floatGrade/totalQues * 100;
+
+
+        Toast.makeText(this, String.format("%.2f",percentage), Toast.LENGTH_SHORT).show();
         mSubmitButton.setEnabled(false);
         mResetButton.setVisibility(View.VISIBLE);
         mSumButton.setVisibility(View.VISIBLE);

@@ -66,13 +66,11 @@ public class CheatActivity extends AppCompatActivity {
                     mAnswerTextView.setText(answerIndicator);
                 }
                 mAnswerShown = true;
-                System.out.println(mAnswerIsTrue);
                 setAnswerShownResult(mAnswerShown);
 
             }
         });
 
-        System.out.println(mAnswerShown);
 
 
     }

@@ -31,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_IS_QUES_ANSWERED = "is_ques_answered";
     private static final String KEY_QUES_ANSWERED_LIST = "answered_list";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_HAS_SUBMIT = "has_submit";
 
     private static final int REQUEST_CODE_CHEAT = 0;
     private static final int REQUEST_CODE_SUMMARY = 0;
@@ -70,6 +71,7 @@ public class QuizActivity extends AppCompatActivity {
     private int cheatTimes = 0;
     private boolean mIsCheater;
     private boolean mIsQuestionAnswered;
+    private boolean hasSubmitted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,7 @@ public class QuizActivity extends AppCompatActivity {
             mIsQuestionAnswered = savedInstanceState.getBoolean(KEY_IS_QUES_ANSWERED, false);
             mQuestionsAnswered = savedInstanceState.getIntegerArrayList(KEY_QUES_ANSWERED_LIST);
             quizGrade = savedInstanceState.getInt(KEY_SCORE, 0);
+            hasSubmitted = savedInstanceState.getBoolean(KEY_HAS_SUBMIT, false);
         }
 
         if (!mQuestionsAnswered.isEmpty()) {
@@ -253,6 +256,13 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        // Check state for submission attempt
+        if(hasSubmitted == true){
+            mSubmitButton.setEnabled(false);
+            mResetButton.setVisibility(View.VISIBLE);
+            mSumButton.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -302,6 +312,7 @@ public class QuizActivity extends AppCompatActivity {
         savedInstanceState.putBoolean(KEY_IS_QUES_ANSWERED, mIsQuestionAnswered);
         savedInstanceState.putIntegerArrayList(KEY_QUES_ANSWERED_LIST, mQuestionsAnswered);
         savedInstanceState.putInt(KEY_SCORE, quizGrade);
+        savedInstanceState.putBoolean(KEY_HAS_SUBMIT, hasSubmitted);
     }
 
 
@@ -368,6 +379,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void submitAnswers() {
+        hasSubmitted = true;
+
         String totalQuestions = String.valueOf(mQuestionBank.length);
         String grade = String.valueOf(quizGrade);
         String toastGrade = grade + "/" + totalQuestions;
@@ -379,9 +392,11 @@ public class QuizActivity extends AppCompatActivity {
 
 
         Toast.makeText(this, String.format("%.2f",percentage), Toast.LENGTH_SHORT).show();
-        mSubmitButton.setEnabled(false);
-        mResetButton.setVisibility(View.VISIBLE);
-        mSumButton.setVisibility(View.VISIBLE);
+        if(hasSubmitted == true){
+            mSubmitButton.setEnabled(false);
+            mResetButton.setVisibility(View.VISIBLE);
+            mSumButton.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -389,11 +404,14 @@ public class QuizActivity extends AppCompatActivity {
         mCurrentIndex = 0;
         quizGrade = 0;
         mSubmitButton.setVisibility(View.INVISIBLE);
+        mSubmitButton.setEnabled(true);
         mResetButton.setVisibility(View.INVISIBLE);
+        mSumButton.setVisibility(View.INVISIBLE);
         enableButtons();
         updateQuestion();
         mQuestionsAnswered.clear();
         mIsQuestionAnswered = false;
+        hasSubmitted = false;
 
         for (Button button : buttons) {
             button.setEnabled(true);

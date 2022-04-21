@@ -52,7 +52,7 @@ public class QuizActivity extends AppCompatActivity {
     // Question Object Array
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true, 1),
-            new Question(R.string.question_oceans, false, 2),
+            new Question(R.string.question_oceans, true, 2),
             new Question(R.string.question_mideast, true, 3),
             new Question(R.string.question_africa, true, 4),
             new Question(R.string.question_americas, true, 5),
@@ -97,7 +97,7 @@ public class QuizActivity extends AppCompatActivity {
         mSubmitButton = findViewById(R.id.submit_button);
         mSubmitButton.setVisibility(View.INVISIBLE);
 
-        // Save onCurrentIndex Variable into savedInstanceState
+        // Save data to savedInstanceState
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER, false);
@@ -108,6 +108,8 @@ public class QuizActivity extends AppCompatActivity {
             hasSubmitted = savedInstanceState.getBoolean(KEY_HAS_SUBMIT, false);
         }
 
+
+        // Logic to set the status containers
         if (!mQuestionsAnswered.isEmpty()) {
             for (int i = 0; i < buttons.size(); i++) {
                 for (int j = 0; j < mQuestionsAnswered.size(); j++) {
@@ -118,11 +120,12 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
 
+
+        // Toggle the submit button when reached last question
         if (mCurrentIndex == mQuestionBank.length - 1) {
             mSubmitButton.setVisibility(View.VISIBLE);
             mSubmitButton.setEnabled(true);
         }
-
 
         // Display question
         mQuestionTextView = findViewById(R.id.question_text_view);
@@ -257,7 +260,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         // Check state for submission attempt
-        if(hasSubmitted == true){
+        if (hasSubmitted) {
             mSubmitButton.setEnabled(false);
             mResetButton.setVisibility(View.VISIBLE);
             mSumButton.setVisibility(View.VISIBLE);
@@ -388,11 +391,11 @@ public class QuizActivity extends AppCompatActivity {
         float floatGrade = quizGrade;
         float totalQues = mQuestionBank.length;
 
-        float percentage = floatGrade/totalQues * 100;
+        float percentage = floatGrade / totalQues * 100;
 
 
-        Toast.makeText(this, String.format("%.2f",percentage), Toast.LENGTH_SHORT).show();
-        if(hasSubmitted == true){
+        Toast.makeText(this, String.format("%.2f", percentage) + "%", Toast.LENGTH_SHORT).show();
+        if (hasSubmitted) {
             mSubmitButton.setEnabled(false);
             mResetButton.setVisibility(View.VISIBLE);
             mSumButton.setVisibility(View.VISIBLE);

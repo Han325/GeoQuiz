@@ -23,6 +23,8 @@ import java.util.Stack;
 
 public class QuizActivity extends AppCompatActivity {
 
+
+
     // System Variables
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
@@ -47,6 +49,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mResetButton;
     private Button mSumButton;
     private TextView mQuestionTextView;
+    private TextView mAPITextView;
     private LinearLayout statusContainer;
 
     // Question Object Array
@@ -78,6 +81,10 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
+
+
+        // Print API Level
+        System.out.println(android.os.Build.VERSION.SDK_INT);
 
 
         // Dynamically generate status container
@@ -131,6 +138,11 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView = findViewById(R.id.question_text_view);
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
+
+        // Display API Level
+        mAPITextView = findViewById(R.id.API_Level);
+        String API_Level = "API Level " + String.valueOf(android.os.Build.VERSION.SDK_INT);
+        mAPITextView.setText(API_Level);
 
         mTrueButton = findViewById(R.id.true_button);
         mFalseButton = findViewById(R.id.false_button);

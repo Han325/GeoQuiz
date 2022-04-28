@@ -24,7 +24,6 @@ import java.util.Stack;
 public class QuizActivity extends AppCompatActivity {
 
 
-
     // System Variables
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
@@ -111,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER, false);
             cheatTimes = savedInstanceState.getInt(KEY_CHEAT_LIMIT, 0);
-            cheatLeft = savedInstanceState.getInt(KEY_CHEAT_LEFT,3);
+            cheatLeft = savedInstanceState.getInt(KEY_CHEAT_LEFT, 3);
             mIsQuestionAnswered = savedInstanceState.getBoolean(KEY_IS_QUES_ANSWERED, false);
             mQuestionsAnswered = savedInstanceState.getIntegerArrayList(KEY_QUES_ANSWERED_LIST);
             quizGrade = savedInstanceState.getInt(KEY_SCORE, 0);
@@ -431,8 +430,8 @@ public class QuizActivity extends AppCompatActivity {
     private void resetQuiz() {
         mCurrentIndex = 0;
         quizGrade = 0;
-        cheatTimes=0;
-        cheatLeft=3;
+        cheatTimes = 0;
+        cheatLeft = 3;
         mSubmitButton.setVisibility(View.INVISIBLE);
         mSubmitButton.setEnabled(true);
         mResetButton.setVisibility(View.INVISIBLE);

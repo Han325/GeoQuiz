@@ -36,8 +36,8 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_height="250dp"
+                android:gravity="center_horizontal"
 
                 >
 
@@ -54,7 +54,7 @@
                         android:layout_gravity="center_horizontal"
                         android:padding="100dp"
                         android:paddingBottom="150dp"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
 
                 </LinearLayout>
@@ -63,9 +63,6 @@
             </RelativeLayout>
 
         </RelativeLayout>
-
-
-
 
 
         <RelativeLayout
@@ -81,8 +78,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical|center_horizontal"
 
                     android:orientation="horizontal">
 
@@ -100,7 +97,6 @@
                         android:layout_weight="1"
                         android:text="@string/false_button" />
                 </LinearLayout>
-
 
 
             </RelativeLayout>
@@ -169,8 +165,6 @@
             </RelativeLayout>
 
         </RelativeLayout>
-
-
 
 
         <LinearLayout

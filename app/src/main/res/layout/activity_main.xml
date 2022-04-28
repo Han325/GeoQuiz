@@ -15,10 +15,10 @@
         android:orientation="horizontal">
 
         <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:text="TEST"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="TEST"/>-->
 
     </LinearLayout>
 
@@ -78,15 +78,13 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/cheat_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cheat_button"/>
-
+                android:text="@string/cheat_button" />
 
 
         </LinearLayout>
@@ -115,50 +113,44 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/submit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/submit_button"/>
+                android:text="@string/submit_button" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/reset_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reset_button"/>
+                android:text="@string/reset_button" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/summary_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/summary_button"/>
+                android:text="@string/summary_button" />
 
         </LinearLayout>
 
 
-
     </LinearLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>

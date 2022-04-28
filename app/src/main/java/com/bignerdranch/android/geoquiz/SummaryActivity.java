@@ -14,7 +14,7 @@ public class SummaryActivity extends AppCompatActivity {
     private static final String EXTRA_TOTAL_SCORE =
             "com.bignerdranch.android.geoquiz.total_score";
 
-    private static final String EXTRA_TOTAL_CHEAT_ATTEMPT=
+    private static final String EXTRA_TOTAL_CHEAT_ATTEMPT =
             "com.bignerdranch.android.geoquiz.total_cheat_attempt";
 
     private TextView totalQues;
@@ -22,7 +22,7 @@ public class SummaryActivity extends AppCompatActivity {
     private TextView totalCheats;
 
 
-    public static Intent newIntent(Context packageContext, int totalQues, int totalScore, int cheatAttempt){
+    public static Intent newIntent(Context packageContext, int totalQues, int totalScore, int cheatAttempt) {
         Intent intent = new Intent(packageContext, SummaryActivity.class);
         intent.putExtra(EXTRA_TOTAL_QUES_ANSWERED, totalQues);
         intent.putExtra(EXTRA_TOTAL_SCORE, totalScore);
@@ -41,12 +41,12 @@ public class SummaryActivity extends AppCompatActivity {
 
 
         totalQues = findViewById(R.id.total_ques);
-        totalQues.setText("Total Questions Answered:" + " " +String.valueOf(getTotalQues));
+        totalQues.setText("Total Questions Answered:" + " " + String.valueOf(getTotalQues));
 
         totalScore = findViewById(R.id.total_score);
-        totalScore.setText("Total Score:" + " " +String.valueOf(getTotalScore));
+        totalScore.setText("Total Score:" + " " + String.valueOf(getTotalScore));
 
         totalCheats = findViewById(R.id.total_cheats);
-        totalCheats.setText("Total Cheat Attempt(s):" + " " +String.valueOf(getTotalCheats));
+        totalCheats.setText("Total Cheat Attempt(s):" + " " + String.valueOf(getTotalCheats));
     }
 }

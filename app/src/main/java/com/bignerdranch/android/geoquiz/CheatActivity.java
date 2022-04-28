@@ -72,7 +72,6 @@ public class CheatActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override

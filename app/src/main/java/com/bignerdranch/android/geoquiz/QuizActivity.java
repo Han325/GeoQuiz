@@ -34,7 +34,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_QUES_ANSWERED_LIST = "answered_list";
     private static final String KEY_SCORE = "score";
     private static final String KEY_HAS_SUBMIT = "has_submit";
-
+    private static final String KEY_CHEAT_LEFT = "cheat_left";
     private static final int REQUEST_CODE_CHEAT = 0;
     private static final int REQUEST_CODE_SUMMARY = 0;
 
@@ -49,6 +49,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mResetButton;
     private Button mSumButton;
     private TextView mQuestionTextView;
+    private TextView mCheatTokenView;
     private TextView mAPITextView;
     private LinearLayout statusContainer;
 
@@ -72,6 +73,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private int quizGrade = 0;
     private int cheatTimes = 0;
+    private int cheatLeft = 3;
     private boolean mIsCheater;
     private boolean mIsQuestionAnswered;
     private boolean hasSubmitted = false;
@@ -109,6 +111,7 @@ public class QuizActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER, false);
             cheatTimes = savedInstanceState.getInt(KEY_CHEAT_LIMIT, 0);
+            cheatLeft = savedInstanceState.getInt(KEY_CHEAT_LEFT,3);
             mIsQuestionAnswered = savedInstanceState.getBoolean(KEY_IS_QUES_ANSWERED, false);
             mQuestionsAnswered = savedInstanceState.getIntegerArrayList(KEY_QUES_ANSWERED_LIST);
             quizGrade = savedInstanceState.getInt(KEY_SCORE, 0);
@@ -138,6 +141,10 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView = findViewById(R.id.question_text_view);
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
+
+        // Display remaining cheat tokens
+        mCheatTokenView = findViewById(R.id.cheat_tokens);
+        mCheatTokenView.setText("Cheat token(s) left: " + String.valueOf(cheatLeft));
 
         // Display API Level
         mAPITextView = findViewById(R.id.API_Level);
@@ -235,6 +242,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         mCheatButton = findViewById(R.id.cheat_button);
+        checkCheatLimit();
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,6 +303,8 @@ public class QuizActivity extends AppCompatActivity {
             }
             mIsCheater = CheatActivity.wasAnswerShown(data);
         }
+        checkCheatLimit();
+
     }
 
 
@@ -328,6 +338,7 @@ public class QuizActivity extends AppCompatActivity {
         savedInstanceState.putIntegerArrayList(KEY_QUES_ANSWERED_LIST, mQuestionsAnswered);
         savedInstanceState.putInt(KEY_SCORE, quizGrade);
         savedInstanceState.putBoolean(KEY_HAS_SUBMIT, hasSubmitted);
+        savedInstanceState.putInt(KEY_CHEAT_LEFT, cheatLeft);
     }
 
 
@@ -378,6 +389,8 @@ public class QuizActivity extends AppCompatActivity {
         if (mIsCheater) {
             messageResId = R.string.judgement_toast;
             cheatTimes += 1;
+            cheatLeft -= 1;
+            mCheatTokenView.setText("Cheat token(s) left: " + String.valueOf(cheatLeft));
         } else {
             if (userPressedTrue == answerIsTrue) {
                 messageResId = R.string.correct_toast;
@@ -418,6 +431,8 @@ public class QuizActivity extends AppCompatActivity {
     private void resetQuiz() {
         mCurrentIndex = 0;
         quizGrade = 0;
+        cheatTimes=0;
+        cheatLeft=3;
         mSubmitButton.setVisibility(View.INVISIBLE);
         mSubmitButton.setEnabled(true);
         mResetButton.setVisibility(View.INVISIBLE);
@@ -427,6 +442,8 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionsAnswered.clear();
         mIsQuestionAnswered = false;
         hasSubmitted = false;
+        mCheatButton.setEnabled(true);
+
 
         for (Button button : buttons) {
             button.setEnabled(true);
